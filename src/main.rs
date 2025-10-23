@@ -5,7 +5,16 @@ fn main() -> anyhow::Result<()> {
     let opts = Opts::parse();
 
     match opts.cmd {
-        SubCommand::Csv(opts) => process_csv(&opts.input, &opts.output)?,
+        SubCommand::Csv(opts) => {
+            let output = if let Some(output) = opts.output {
+                output.clone()
+            } else {
+                // 要输出的文件格式
+                format!("output.{}", opts.format)
+            };
+
+            process_csv(&opts.input, output, opts.format)?;
+        }
     }
 
     Ok(())
