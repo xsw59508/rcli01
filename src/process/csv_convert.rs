@@ -41,7 +41,7 @@ pub fn process_csv(input: &str, output: String, format: OutputFormat) -> Result<
             }
             let toml_data = TomlData { players: ret };
             toml::to_string_pretty(&toml_data)?
-        },
+        }
     };
 
     fs::write(output, content)?;
